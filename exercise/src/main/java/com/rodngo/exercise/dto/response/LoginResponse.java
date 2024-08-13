@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class LoginResponse {
-    private Long id;
+    private String id;
     private String access_token;
     private String refresh_token;
 }

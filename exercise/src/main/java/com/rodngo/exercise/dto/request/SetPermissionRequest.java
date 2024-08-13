@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class SetPermissionRequest {
-    private Long userId;
-    private List<Long> permissionIds;
+    private String userId;
+    private List<String> permissionIds;
 }

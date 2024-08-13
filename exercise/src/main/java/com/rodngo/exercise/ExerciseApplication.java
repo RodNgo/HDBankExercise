@@ -3,7 +3,6 @@ package com.rodngo.exercise;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.Conditions;
@@ -25,13 +24,12 @@ import com.rodngo.exercise.service.UserService;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-
 import org.modelmapper.config.Configuration;
 
 @SpringBootApplication
+@Transactional
 @Slf4j
 public class ExerciseApplication {
-
 	@Bean
 	public ModelMapper modelMapper(){
 		ModelMapper modelMapper = new ModelMapper();
@@ -75,11 +73,17 @@ public class ExerciseApplication {
 				authService.create(new RegistrationRequest("admin", "123"), permissions);
 			}
 			else{
+				// log.info(permissions.size().toString());
+				
 				List<Permission> existingPermissions = user.getPermissions();
-			// 	List<Permission> permissionsToAdd = permissions.stream().filter(permission->!existingPermissions.contains(permission)).collect(Collectors.toList());
-			// 	existingPermissions.addAll(permissionsToAdd);
-			// 	user.setPermissions(existingPermissions);
-			// 	user = userService.save(user);
+				
+				List<Permission> permissionsToAdd = permissions.stream()
+            .filter(permission -> existingPermissions.stream()
+                    .noneMatch(existing -> existing.getName().equals(permission.getName())))
+            .collect(Collectors.toList());
+				existingPermissions.addAll(permissionsToAdd);
+				user.setPermissions(existingPermissions);
+				user = userService.save(user);
 			}
 		};
 	}

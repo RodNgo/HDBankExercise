@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rodngo.exercise.entity.Permission;
 
 @Repository
-public interface PermissionRepository extends JpaRepository<Permission,Long>{
+public interface PermissionRepository extends JpaRepository<Permission,String>{
     Permission findByName(String name);
 
     List<Permission> findAllByNameIn(List<String> names);

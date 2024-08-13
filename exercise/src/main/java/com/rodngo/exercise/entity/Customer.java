@@ -14,9 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String cif;
 
-    private String empNo;
+    @OneToOne
+    @JoinColumn(name = "empNo", referencedColumnName = "id", nullable = true)
+    private User user;
     private String name;
     private String permanentAddress;
     private String temporaryAddress;

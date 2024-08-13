@@ -11,13 +11,16 @@ import com.rodngo.exercise.entity.User;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class JwtTokenUtil {
-    private final String jwtSecret = "CctlD5JL16m8wLTgsFNhzqjQP";
-    private final String jwtIssuer = "coder4.life";
+
+    @Value("${jwt.signerKey}")
+    private String jwtSecret ;
+    private final String jwtIssuer = "taipham";
 
     public String generateAccessToken(User user) {
         Algorithm algorithm = Algorithm.HMAC512(jwtSecret.getBytes());

@@ -13,7 +13,10 @@ import com.rodngo.exercise.exception.AppException;
 import com.rodngo.exercise.exception.ErrorCode;
 import com.rodngo.exercise.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -39,8 +42,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getById(Long id){
+    public User getById(String id){
         return userRepository.findById(id).orElseThrow(()-> new AppException(ErrorCode.ID_DOES_NOT_EXIST));
+    }
+
+    public boolean checkExistUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
 }

@@ -78,13 +78,23 @@ public class AuthService implements UserDetailsService{
         User user = userService.getById(request.getUserId());
         List<Permission> existingPermissions = user.getPermissions();
         List<Permission> permissionsToAdd = permissionService.getPermissionsByIds(request.getPermissionIds()).stream()
-            .filter(permission -> !existingPermissions.contains(permission))
+            .filter(permission -> existingPermissions.stream()
+            .noneMatch(existing -> existing.getName().equals(permission.getName())))
             .collect(Collectors.toList());
         existingPermissions.addAll(permissionsToAdd);
         user.setPermissions(existingPermissions);
         user = userService.save(user);
         return userService.getUser(user);
 
+    }
+
+    public UserResponse createUser(RegistrationRequest request){
+        if (userService.checkExistUsername(request.getUsername())) {
+            throw new AppException(ErrorCode.USERNAME_EXIST);
+        } else {
+            User user = create(request);
+            return userService.getUser(user);
+        }
     }
     
 }

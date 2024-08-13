@@ -18,7 +18,10 @@ import com.rodngo.exercise.entity.User;
 import com.rodngo.exercise.repository.PermissionRepository;
 import com.rodngo.exercise.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class PermissionService {
     
     @Autowired
@@ -48,7 +51,7 @@ public class PermissionService {
         throw new AccessDeniedException("unauthorized");
     }
 
-    public List<Permission> getPermissionsByIds(List<Long> permissionIds) {
+    public List<Permission> getPermissionsByIds(List<String> permissionIds) {
         return permissionRepository.findAllById(permissionIds);
     }
 

@@ -36,6 +36,17 @@ public class GlobalExceptionHandler {
     }
 
     @SuppressWarnings("rawtypes")
+    @ExceptionHandler(value = AppException.class)
+    public ResponseEntity<ApiResponse> handlingAppException(AppException exception){
+        ApiResponse apiResponse = ApiResponse.builder()
+                                            .code(exception.getErrorCode().getCode())
+                                            .message(exception.getErrorCode().getMessage())
+                                            .build(); 
+        return ResponseEntity.status(exception.getErrorCode().getStatusCode())
+                            .body(apiResponse);
+    }
+
+    @SuppressWarnings("rawtypes")
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ApiResponse> handlingRuntimeException(Exception exception){
         ApiResponse apiResponse = ApiResponse.builder()

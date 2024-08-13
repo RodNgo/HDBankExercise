@@ -1,14 +1,11 @@
 package com.rodngo.exercise.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.rodngo.exercise.config.JwtTokenUtil;
 import com.rodngo.exercise.dto.request.LoginRequest;
+import com.rodngo.exercise.dto.request.RegistrationRequest;
 import com.rodngo.exercise.dto.request.SetPermissionRequest;
 import com.rodngo.exercise.dto.response.ApiResponse;
 import com.rodngo.exercise.dto.response.LoginResponse;
@@ -23,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,6 +75,11 @@ public class AuthController {
     @PostMapping("set_permission")
     public ApiResponse<UserResponse> setPermission(@RequestBody SetPermissionRequest request) {
         return ApiResponse.<UserResponse>builder().result(authService.setPermission(request)).build();
+    }
+
+    @PostMapping("register")
+    public ApiResponse<UserResponse> register(@RequestBody RegistrationRequest request){
+        return ApiResponse.<UserResponse>builder().result(authService.createUser(request)).build();
     }
     
     

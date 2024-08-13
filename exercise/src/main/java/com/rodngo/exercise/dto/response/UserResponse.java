@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class UserResponse {
-    private Long id;
+    private String id;
     private String username;
     private List<PermissionResponse> permissions;
 }

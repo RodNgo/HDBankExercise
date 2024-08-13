@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class PermissionResponse {
-    private Long id;
+    private String id;
     private String name;
 }
