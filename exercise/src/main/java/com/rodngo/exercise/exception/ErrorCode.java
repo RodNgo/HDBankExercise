@@ -13,8 +13,8 @@ public enum ErrorCode {
     UNAUTHORIZED(9996,"You do not have permission",HttpStatus.FORBIDDEN),
     ID_DOES_NOT_EXIST(9991,"This id doesn't exist!",HttpStatus.NOT_FOUND),
     USER_NOT_EXIST(9990,"This user doesn't exist!",HttpStatus.NOT_FOUND),
-    USERNAME_EXIST(9989,"This username is not available",HttpStatus.INTERNAL_SERVER_ERROR);
-
+    USERNAME_EXIST(9989,"This username is already available",HttpStatus.INTERNAL_SERVER_ERROR),
+    CUSTOMER_NOT_FOUND(9988,"Customer not found",HttpStatus.NOT_FOUND);
     private int code;
     private String message;
     private HttpStatusCode statusCode;

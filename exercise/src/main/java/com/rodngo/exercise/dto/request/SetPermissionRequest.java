@@ -12,3 +12,4 @@ public class SetPermissionRequest {
     private String userId;
     private List<String> permissionIds;
 }
+

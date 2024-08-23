@@ -56,7 +56,7 @@ public class ExerciseApplication {
 	@Transactional
 	CommandLineRunner run(UserService userService,AuthService authService, PermissionService permissionService){
 		return args ->{
-			List<String> permissionNames = Arrays.asList("USER", "ADMIN");
+			List<String> permissionNames = Arrays.asList("USER","ADMIN","SHOW_SALARY","CREATE_CUSTOMER");
 			List<Permission> permissions = new ArrayList<>();
 			for (String name : permissionNames) {
 				// log.info(permissionService.findPermissionByName(name).toString());

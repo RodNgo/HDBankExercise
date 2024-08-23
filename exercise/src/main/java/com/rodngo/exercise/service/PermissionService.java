@@ -38,10 +38,23 @@ public class PermissionService {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    public MyPermissionResponse myPermission(){
+    public MyPermissionResponse UserPermission(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        
+
         if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AccessDeniedException("unauthorized");
+        }
+        User user = userRepository.findByUsername(authentication.getName());
+        if(user!=null){
+            return MyPermissionResponse.builder().permissions(getListResponses(user.getPermissions())).build();
+        }
+        throw new AccessDeniedException("unauthorized");
+    }
+    @PreAuthorize("hasAuthority('CREATE_TABLE')")
+    public MyPermissionResponse Create_TableResponse(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+       if (authentication == null || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("unauthorized");
         }
         User user = userRepository.findByUsername(authentication.getName());
